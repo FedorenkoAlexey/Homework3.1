@@ -26,6 +26,17 @@ class ListElement {
       element.next = this;
     }
   }
+
+  cut() {
+    let p = this.getPrev();
+    let n = this.getNext();
+
+    if (p != null) {
+      p.setNext(n);
+    } else if (n != null) {
+      n.setPrev(p);
+    }
+  }
 }
 
 // -------------------------------------------------
@@ -34,8 +45,12 @@ let el2 = new ListElement(2);
 let el3 = new ListElement(3);
 let el4 = new ListElement(4);
 
-console.log(el2);
 el1.setNext(el2);
 el2.setNext(el3);
 el3.setNext(el4);
-console.log(el3.getPrev());
+
+el3.cut();
+console.log(el1);
+console.log(el2);
+console.log(el3);
+console.log(el4);
