@@ -1,81 +1,101 @@
 class ListElement {
-  constructor(value) {
-      this.value = value;
-      this.next = null;
-      this.prev = null;
-  }
-  setValue(value) {
-      this.value = value;
-  }
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+        this.prev = null;
+    }
+    setValue(value) {
+        this.value = value;
+    }
 
-  getNext() {
-      return this.next;
-  }
+    getNext() {
+        return this.next;
+    }
 
-  setNext(element) {
-      this.next = element;
-//      if (element != null) {
-//          element.prev = this;
-//      }
-  }
+    setNext(element) {
+        this.next = element;
+        //      if (element != null) {
+        //          element.prev = this;
+        //      }
+    }
 
-  getPrev() {
-      return this.prev;
-  }
+    getPrev() {
+        return this.prev;
+    }
 
-  setPrev(element) {
-      this.prev = element;
-//      if (element != null) {
-//          element.next = this;
-//      }
-  }
+    setPrev(element) {
+        this.prev = element;
+        //      if (element != null) {
+        //          element.next = this;
+        //      }
+    }
 
-  cut() {
-      let p = this.getPrev();
-      let n = this.getNext();
-      this.next = null;
-      this.prev = null;
+    cut() {
+        let p = this.getPrev();
+        let n = this.getNext();
+        this.next = null;
+        this.prev = null;
 
-      if (p != null) {
-          p.setNext(n);
-      } else if (n != null) {
-          n.setPrev(p);
-      }
-  }
+        if (p != null) {
+            p.setNext(n);
+        } else if (n != null) {
+            n.setPrev(p);
+        }
+    }
 
-  swap(element) {
-      let p = this.getPrev();
-      let n = this.getNext();
-      let p2 = element.getPrev();
-      let n2 = element.getNext();
+    swap(element) {
+        let p = this.getPrev();
+        let n = this.getNext();
+        let p2 = element.getPrev();
+        let n2 = element.getNext();
 
-      this.setPrev(p2);
-      p2.setNext(this);
-      element.setNext(n);
-      n.setPrev(element);
+        if (p != element) {
+            if (n == element) {
+                this.prev = element;
+                element.next = this;
+            }
+            if (n != null) {
+                n.setPrev(element);
+                element.setNext(n);
+            } else {
+                element.next = null;
+            }
 
-      if (n == element) {
-          this.prev = element;
-          element.next = this;
-      }
+            if (n2 != null) {
+                this.setNext(n2);
+                n2.setPrev(this);
+            } else {
+                this.next = null;
+            }
 
-      if (n2 != null) {
-          this.setNext(n2);
-          n2.setPrev(this);
-      } else {
-          this.next = null;
-      }
+            if (p != null) {
+                element.setPrev(p);
+                p.setNext(element);
+            } else {
+                element.prev = null;
+            }
+            if (p2 != null) {
+                this.setPrev(p2);
+                p2.setNext(this);
+            } else {
+                this.prev = null;
+            }
+        } else {
+            this.next = element;
+            element.prev = this;
+            this.setPrev(p2);
+            element.setNext(n);
 
-      if (p != null) {
-          element.setPrev(p);
-          p.setNext(element);
-      } else {
-          element.prev = null;
-      }
-  }
+            if (p2 == null) {
+                this.prev = null;
+            } else if (n == null) {
+                element.next = null;
+            }
+        }
+    }
 }
 
-// -------------------------------------------------
+
 let el1 = new ListElement();
 let el2 = new ListElement();
 let el3 = new ListElement();
@@ -94,35 +114,8 @@ el3.setPrev(el2);
 el4.setPrev(el3);
 el5.setPrev(el4);
 
-
 el1.setValue(10);
 el2.setValue(20);
 el3.setValue(30);
 el4.setValue(40);
 el5.setValue(50);
-
-console.log("for el2 getNext: ", el2.getNext());
-
-console.log("for el5 getPrev: ", el5.getPrev());
-
-console.log('el1.value =', el1.value);
-
-console.log("Check for swap & cut el4");
-
-el2.swap(el5); 
-el4.cut();
-
-let el = el1;
-do {
-  console.info("el:" + el.value);
-  el = el.getNext();
-} while (el != null);
-
-// console.log("Check for cut");
-// el4.cut();
-
-//el = el1;
-//do {
-//  console.info("el:" + el.value);
-//  el = el.getNext();
-//} while (el != null);
