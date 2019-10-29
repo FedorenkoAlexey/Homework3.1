@@ -14,9 +14,9 @@ class ListElement {
 
   setNext(element) {
       this.next = element;
-      if (element != null) {
-          element.prev = this;
-      }
+//      if (element != null) {
+//          element.prev = this;
+//      }
   }
 
   getPrev() {
@@ -25,9 +25,9 @@ class ListElement {
 
   setPrev(element) {
       this.prev = element;
-      if (element != null) {
-          element.next = this;
-      }
+//      if (element != null) {
+//          element.next = this;
+//      }
   }
 
   cut() {
@@ -86,6 +86,14 @@ el1.setNext(el2);
 el2.setNext(el3);
 el3.setNext(el4);
 el4.setNext(el5);
+el5.setNext(null);
+
+el1.setPrev(null);
+el2.setPrev(el1);
+el3.setPrev(el2);
+el4.setPrev(el3);
+el5.setPrev(el4);
+
 
 el1.setValue(10);
 el2.setValue(20);
@@ -93,20 +101,17 @@ el3.setValue(30);
 el4.setValue(40);
 el5.setValue(50);
 
-console.log(el1);
-console.log(el2);
-console.log(el3);
-console.log(el4);
-console.log(el5);
-
 console.log("for el2 getNext: ", el2.getNext());
 
 console.log("for el5 getPrev: ", el5.getPrev());
 
 console.log('el1.value =', el1.value);
 
-console.log("Check for swap");
-el2.swap(el5);
+console.log("Check for swap & cut el4");
+
+el2.swap(el5); 
+el4.cut();
+
 let el = el1;
 do {
   console.info("el:" + el.value);
@@ -116,8 +121,8 @@ do {
 // console.log("Check for cut");
 // el4.cut();
 
-el = el1;
-do {
-  console.info("el:" + el.value);
-  el = el.getNext();
-} while (el != null);
+//el = el1;
+//do {
+//  console.info("el:" + el.value);
+//  el = el.getNext();
+//} while (el != null);
